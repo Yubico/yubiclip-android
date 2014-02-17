@@ -30,5 +30,11 @@
 
 <resources>
     <string name="app_name">YubiClip</string>
-    <string name="copied">YubiKey OTP copied to clipboard</string>
+    <string name="copied">YubiClip: Copied to clipboard</string>
+    <string name="cleared">YubiClip: Clipboard cleared</string>
+    <string name="pref_settings">YubiClip Settings</string>
+    <string name="pref_clear_title">Clear Clipboard</string>
+    <string name="pref_clear_summary">Automatically clears the clipboard contents after 10 seconds.</string>
+    <string name="pref_layout_summary">Keyboard layout to use for scancode static password mode.</string>
+    <string name="pref_layout_title">Keyboard Layout</string>
 </resources>

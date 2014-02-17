@@ -30,32 +30,50 @@
 package com.yubico.yubiclip;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
+import android.content.*;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
+import com.yubico.yubiclip.scancode.KeyboardLayout;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HandleOTPActivity extends Activity {
-    private static final Pattern OTP_PATTERN = Pattern.compile("^https://my\\.yubico\\.com/neo/(.+)$");
+    private static final Pattern OTP_PATTERN = Pattern.compile("^https://my\\.yubico\\.com/neo/([a-zA-Z0-9!]+)$");
+    private static final int DATA_OFFSET = 23;
 
+    @Override
     public void onResume() {
         super.onResume();
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         Matcher matcher = OTP_PATTERN.matcher(getIntent().getDataString());
         if (matcher.matches()) {
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            String otp = matcher.group(1);
+            copyToClipboard(matcher.group(1));
+        } else {
+            Parcelable[] raw = getIntent().getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            byte[] bytes = ((NdefMessage) raw[0]).toByteArray();
+            bytes = Arrays.copyOfRange(bytes, DATA_OFFSET, bytes.length);
+            KeyboardLayout kbd = KeyboardLayout.forName(prefs.getString("prefLayout", "US"));
+            copyToClipboard(kbd.fromScanCodes(bytes));
+        }
 
-            ClipData clip = ClipData.newPlainText("YubiKey OTP", otp);
-            clipboard.setPrimaryClip(clip);
-
-            Toast.makeText(getApplication(), R.string.copied, Toast.LENGTH_SHORT).show();
-
+        if (prefs.getBoolean("prefClear", false)) {
+            startService(new Intent(this, ClearClipboardService.class));
         }
 
         finish();
+    }
+
+    private void copyToClipboard(String data) {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(ClearClipboardService.YUBI_CLIP_DATA, data);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getApplication(), R.string.copied, Toast.LENGTH_SHORT).show();
     }
 }

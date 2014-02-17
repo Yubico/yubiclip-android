@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefClear"
+        android:summary="@string/pref_clear_summary"
+        android:title="@string/pref_clear_title"/>
+
+    <ListPreference
+        android:defaultValue="US"
+        android:key="prefLayout"
+        android:summary="@string/pref_layout_summary"
+        android:title="@string/pref_layout_title"/>
+</PreferenceScreen>
