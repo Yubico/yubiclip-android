@@ -32,9 +32,12 @@
     <string name="app_name">YubiClip</string>
     <string name="copied">YubiClip: Copied to clipboard</string>
     <string name="cleared">YubiClip: Clipboard cleared</string>
-    <string name="pref_settings">YubiClip Settings</string>
-    <string name="pref_clear_title">Clear Clipboard</string>
-    <string name="pref_clear_summary">Automatically clears the clipboard contents after 10 seconds.</string>
-    <string name="pref_layout_summary">Keyboard layout to use for scancode static password mode.</string>
+    <string name="settings">YubiClip Settings</string>
+    <string name="pref_timeout_title">Clear Clipboard</string>
+    <string name="pref_clipboard_title">Clipboard</string>
+    <string name="pref_clipboard_summary">Copy codes to the clipboard.</string>
+    <string name="pref_notification_title">Notification</string>
+    <string name="pref_notification_summary">Display codes in a Notification.</string>
     <string name="pref_layout_title">Keyboard Layout</string>
+    <string name="pref_layout_summary">Keyboard layout to use for scancode static password mode.</string>
 </resources>

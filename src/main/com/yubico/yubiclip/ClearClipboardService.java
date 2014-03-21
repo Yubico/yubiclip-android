@@ -1,12 +1,10 @@
 package com.yubico.yubiclip;
 
 import android.app.Service;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,21 +14,31 @@ import android.widget.Toast;
 public class ClearClipboardService extends Service {
     public static final String YUBI_CLIP_DATA = "YubiClip data";
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
+    private final SharedPreferences prefs;
     private int copyCount = 0;
+
+    public ClearClipboardService() {
+        super();
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         final int clearCount = ++copyCount;
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (clearCount == copyCount) {
-                    clearClipboard();
-                    stopSelf();
+        int timeout = Integer.parseInt(prefs.getString(getString(R.string.pref_timeout), "-1"));
+        if(timeout > 0) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (clearCount == copyCount) {
+                        clearClipboard();
+                        stopSelf();
+                    }
                 }
-            }
-        }, 10000); 
+            }, timeout * 1000);
+        }
         return Service.START_NOT_STICKY;
     }
 

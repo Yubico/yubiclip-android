@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_timeout">prefTimeout</string>
+    <string name="pref_clipboard">prefClipboard</string>
+    <string name="pref_notification">prefNotification</string>
+    <string name="pref_layout">prefLayout</string>
+</resources>

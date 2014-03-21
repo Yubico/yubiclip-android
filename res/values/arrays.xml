@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clear_timeout_names">
+        <item>Don\'t clear</item>
+        <item>After 10 seconds</item>
+        <item>After 20 seconds</item>
+        <item>After 30 seconds</item>
+        <item>After 1 minute</item>
+    </string-array>
+    <string-array name="clear_timeout_values">
+        <item>-1</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+</resources>

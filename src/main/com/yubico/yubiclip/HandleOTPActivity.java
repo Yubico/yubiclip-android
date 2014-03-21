@@ -29,7 +29,7 @@
 
 package com.yubico.yubiclip;
 
-import android.app.Activity;
+import android.app.*;
 import android.content.*;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
@@ -46,34 +46,56 @@ public class HandleOTPActivity extends Activity {
     private static final Pattern OTP_PATTERN = Pattern.compile("^https://my\\.yubico\\.com/neo/([a-zA-Z0-9!]+)$");
     private static final int DATA_OFFSET = 23;
 
+    private SharedPreferences prefs;
+
     @Override
     public void onResume() {
         super.onResume();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         Matcher matcher = OTP_PATTERN.matcher(getIntent().getDataString());
         if (matcher.matches()) {
-            copyToClipboard(matcher.group(1));
+            handleOTP(matcher.group(1));
         } else {
             Parcelable[] raw = getIntent().getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             byte[] bytes = ((NdefMessage) raw[0]).toByteArray();
             bytes = Arrays.copyOfRange(bytes, DATA_OFFSET, bytes.length);
-            KeyboardLayout kbd = KeyboardLayout.forName(prefs.getString("prefLayout", "US"));
-            copyToClipboard(kbd.fromScanCodes(bytes));
-        }
-
-        if (prefs.getBoolean("prefClear", false)) {
-            startService(new Intent(this, ClearClipboardService.class));
+            String layout = prefs.getString(getString(R.string.pref_layout), "US");
+            KeyboardLayout kbd = KeyboardLayout.forName(layout);
+            handleOTP(kbd.fromScanCodes(bytes));
         }
 
         finish();
+    }
+
+    private void handleOTP(String data) {
+        if(prefs.getBoolean(getString(R.string.pref_clipboard), true)) {
+            copyToClipboard(data);
+        }
+        if(prefs.getBoolean(getString(R.string.pref_notification), false)) {
+            displayNotification(data);
+        }
     }
 
     private void copyToClipboard(String data) {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(ClearClipboardService.YUBI_CLIP_DATA, data);
         clipboard.setPrimaryClip(clip);
+        int timeout = prefs.getInt(getString(R.string.pref_timeout), -1);
+        if (timeout > 0) {
+            startService(new Intent(this, ClearClipboardService.class));
+        }
         Toast.makeText(getApplication(), R.string.copied, Toast.LENGTH_SHORT).show();
+    }
+
+    private void displayNotification(String data) {
+        Notification.Builder nBuilder = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.ic_yubiclip)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(data);
+        int nId = 0;
+        NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.notify(nId, nBuilder.getNotification());
     }
 }

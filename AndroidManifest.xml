@@ -60,7 +60,7 @@
         <service android:name=".ClearClipboardService"/>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/pref_settings"
+            android:label="@string/settings"
             android:theme="@android:style/Theme.Holo"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>

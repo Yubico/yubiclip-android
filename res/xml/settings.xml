@@ -2,14 +2,28 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/pref_clipboard"
+        android:summary="@string/pref_clipboard_summary"
+        android:title="@string/pref_clipboard_title"/>
+
+    <ListPreference
+        android:defaultValue="-1"
+        android:key="@string/pref_timeout"
+        android:dependency="@string/pref_clipboard"
+        android:title="@string/pref_timeout_title"
+        android:entries="@array/clear_timeout_names"
+        android:entryValues="@array/clear_timeout_values"/>
+
+    <SwitchPreference
         android:defaultValue="false"
-        android:key="prefClear"
-        android:summary="@string/pref_clear_summary"
-        android:title="@string/pref_clear_title"/>
+        android:key="@string/pref_notification"
+        android:summary="@string/pref_notification_summary"
+        android:title="@string/pref_notification_title"/>
 
     <ListPreference
         android:defaultValue="US"
-        android:key="prefLayout"
+        android:key="@string/pref_layout"
         android:summary="@string/pref_layout_summary"
         android:title="@string/pref_layout_title"/>
 </PreferenceScreen>
