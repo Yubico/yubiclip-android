@@ -82,7 +82,7 @@ public class HandleOTPActivity extends Activity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(ClearClipboardService.YUBI_CLIP_DATA, data);
         clipboard.setPrimaryClip(clip);
-        int timeout = prefs.getInt(getString(R.string.pref_timeout), -1);
+        int timeout = Integer.parseInt(prefs.getString(getString(R.string.pref_timeout), "-1"));
         if (timeout > 0) {
             startService(new Intent(this, ClearClipboardService.class));
         }

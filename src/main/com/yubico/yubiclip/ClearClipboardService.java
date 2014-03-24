@@ -15,17 +15,15 @@ public class ClearClipboardService extends Service {
     public static final String YUBI_CLIP_DATA = "YubiClip data";
 
     private final Handler handler = new Handler();
-    private final SharedPreferences prefs;
     private int copyCount = 0;
 
     public ClearClipboardService() {
         super();
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final int clearCount = ++copyCount;
         int timeout = Integer.parseInt(prefs.getString(getString(R.string.pref_timeout), "-1"));
         if(timeout > 0) {
