@@ -1,11 +1,12 @@
 yubiclip-android NEWS -- History of user-visible changes.     -*- outline -*-
 
+* Version 1.0.0 released 2015-03-24
+ ** Fixed outputting pipe characters (|) in static passwords.
+ ** Use Material theme for settings page if available.
+
 * Version 0.0.2 released 2014-02-17
-
-** Added support for static passwords in scancode mode.
-
-** Added the ability to auto-clear the clipboard after a set time.
+ ** Added support for static passwords in scancode mode.
+ ** Added the ability to auto-clear the clipboard after a set time.
 
 * Version 0.0.1 released 2013-11-06
-
-** Initial release.
+ ** Initial release.
