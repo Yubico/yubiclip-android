@@ -33,7 +33,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.yubico.yubiclip</groupId>
     <artifactId>yubiclip</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>apk</packaging>
     <name>YubiClip</name>
 
@@ -41,7 +41,8 @@
         <url>scm:git:git://github.com/Yubico/yubiclip-android.git</url>
         <connection>scm:git:git://github.com/Yubico/yubiclip-android.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/Yubico/yubiclip-android.git</developerConnection>
-    </scm>
+      <tag>yubiclip-1.0.0</tag>
+  </scm>
 
     <dependencies>
         <dependency>
