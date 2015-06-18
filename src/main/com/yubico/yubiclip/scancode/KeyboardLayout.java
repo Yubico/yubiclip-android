@@ -13,6 +13,7 @@ public abstract class KeyboardLayout {
 
     static {
         layouts.put("US", new USKeyboardLayout());
+	layouts.put("DE", new DEKeyboardLayout());
     }
 
     public static KeyboardLayout forName(String name) {
