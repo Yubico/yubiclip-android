@@ -55,7 +55,7 @@ public class DEKeyboardLayout extends KeyboardLayout {
             "ü",
             "+",
             "",
-            "<",
+            "#",
             "ö",
             "'",
             "^",
