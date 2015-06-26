@@ -31,8 +31,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.yubico.yubiclip"
           android:installLocation="auto"
-          android:versionCode="3"
-          android:versionName="1.0.0">
+          android:versionCode="4"
+          android:versionName="1.1.0">
 
     <uses-sdk
         android:minSdkVersion="11"

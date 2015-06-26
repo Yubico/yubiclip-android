@@ -1,4 +1,6 @@
-yubiclip-android NEWS -- History of user-visible changes.     -*- outline -*-
+* Version 1.1.0 released 2015-06-26
+ ** Added support for DE keyboard layout.
+ ** Added the ability to install the app to SD card.
 
 * Version 1.0.0 released 2015-03-24
  ** Fixed outputting pipe characters (|) in static passwords.
