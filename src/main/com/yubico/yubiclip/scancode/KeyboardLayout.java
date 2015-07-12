@@ -14,7 +14,7 @@ public abstract class KeyboardLayout {
     static {
         layouts.put("US", new USKeyboardLayout());
 	    layouts.put("DE", new DEKeyboardLayout());
-        layouts.put("CH", new CHKeyboardLayout());
+        layouts.put("DE-CH", new DECHKeyboardLayout());
     }
 
     public static KeyboardLayout forName(String name) {

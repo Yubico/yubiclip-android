@@ -3,7 +3,7 @@ package com.yubico.yubiclip.scancode;
 /**
  * Created by mjenny on 7/12/15.
  */
-public class CHKeyboardLayout extends KeyboardLayout {
+public class DECHKeyboardLayout extends KeyboardLayout {
         private static final String[] usb2key1 = new String[]{
                 "",
                 "",
