@@ -1,5 +1,5 @@
-* Version 1.2.0 unreleased
- ** Added support for DECH keyboard layout.
+* Version 1.2.0 released 2015-11-17
+ ** Added support for DE-CH keyboard layout.
  ** Made app selectable in Android settings to always open supported links
     (Android 6.0).
 
