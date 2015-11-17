@@ -36,7 +36,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="21"/>
+        android:targetSdkVersion="23"/>
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true"/>
@@ -52,6 +52,15 @@
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
+                <data
+                    android:scheme="https"
+                    android:host="my.yubico.com"
+                    android:pathPrefix="/neo"/>
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                     android:scheme="https"
                     android:host="my.yubico.com"

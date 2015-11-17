@@ -1,3 +1,8 @@
+* Version 1.2.0 unreleased
+ ** Added support for DECH keyboard layout.
+ ** Made app selectable in Android settings to always open supported links
+    (Android 6.0).
+
 * Version 1.1.0 released 2015-06-26
  ** Added support for DE keyboard layout.
  ** Added the ability to install the app to SD card.
