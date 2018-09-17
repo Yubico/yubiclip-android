@@ -43,10 +43,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HandleOTPActivity extends Activity {
-    private static final Pattern OTP_PATTERN = Pattern.compile("^https://my\\.yubico\\.com/neo/([a-zA-Z0-9!]+)$");
-    private static final int DATA_OFFSET = 23;
+    private static final String URL_PREFIX = "https://my.yubico.com/";
+    private static final byte URL_NDEF_RECORD = (byte)0xd1;
+    private static final byte[] URL_PREFIX_BYTES = new byte[URL_PREFIX.length() + 2 - 8];
+
+    private static final Pattern OTP_PATTERN = Pattern.compile("^https://my\\.yubico\\.com/[a-z]+/#?([a-zA-Z0-9!]+)$");
 
     private SharedPreferences prefs;
+
+    static {
+        URL_PREFIX_BYTES[0] = 85;
+        URL_PREFIX_BYTES[1] = 4;
+        System.arraycopy(URL_PREFIX.substring(8).getBytes(), 0, URL_PREFIX_BYTES, 2, URL_PREFIX_BYTES.length - 2);
+    }
 
     @Override
     public void onResume() {
@@ -60,10 +69,20 @@ public class HandleOTPActivity extends Activity {
         } else {
             Parcelable[] raw = getIntent().getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             byte[] bytes = ((NdefMessage) raw[0]).toByteArray();
-            bytes = Arrays.copyOfRange(bytes, DATA_OFFSET, bytes.length);
-            String layout = prefs.getString(getString(R.string.pref_layout), "US");
-            KeyboardLayout kbd = KeyboardLayout.forName(layout);
-            handleOTP(kbd.fromScanCodes(bytes));
+            if (bytes[0] == URL_NDEF_RECORD && Arrays.equals(URL_PREFIX_BYTES, Arrays.copyOfRange(bytes, 3, 3 + URL_PREFIX_BYTES.length))) {
+                if(Arrays.equals("/neo/".getBytes(), Arrays.copyOfRange(bytes, 18, 18 + 5))) {
+                    bytes[22] = '#';
+                }
+                for(int i=0; i<bytes.length; i++) {
+                    if (bytes[i] == '#') {
+                        bytes = Arrays.copyOfRange(bytes, i+1, bytes.length);
+                        String layout = prefs.getString(getString(R.string.pref_layout), "US");
+                        KeyboardLayout kbd = KeyboardLayout.forName(layout);
+                        handleOTP(kbd.fromScanCodes(bytes));
+                        break;
+                    }
+                }
+            }
         }
 
         finish();
