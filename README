@@ -1,4 +1,4 @@
-Android application for copying YubiKey NEO OTPs over NFC
+Android application for copying YubiKey OTPs over NFC
 =========================================================
 
 See the file COPYING for copyright and license information.
@@ -10,20 +10,18 @@ This is a small Android application for reading a YubiKey NEO OTP over NFC and
 copying it to the system clipboard.
 
 1. Make sure NFC is turned on
-2. Press the YubiKey NEO against the phone until a message instructs you that
-the OTP has been copied.
+2. Press the YubiKey with NFC against the phone until a message instructs you
+that the OTP has been copied.
 
 
 Building
 --------
 
-Make sure to set the environment variable ANDROID_HOME before running mvn.
-
-This project uses maven3 for building, so to build:
+This project uses gradle for building, so to build:
 -----------
-  $ mvn package
+  $ ./gradlew assembleRelease
 -----------
-After building the .apk file can be found in the target directory.
+After building the apk file can be found in the app/build/outputs/apk directory.
 
 Issues
 ------

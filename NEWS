@@ -1,3 +1,7 @@
+* Verison 1.3.0 released 2018-09-24
+ ** Migrate project to gradle.
+ * Update Android API level.
+
 * Version 1.2.0 released 2015-11-17
  ** Added support for DE-CH keyboard layout.
  ** Made app selectable in Android settings to always open supported links
