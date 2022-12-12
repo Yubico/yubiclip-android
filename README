@@ -1,3 +1,5 @@
+We have reimplemented the yubiclip functionality in https://github.com/Yubico/yubioath-flutter. This repository is now archived and will be used only as a reference.
+
 Android application for copying YubiKey OTPs over NFC
 =========================================================
 
