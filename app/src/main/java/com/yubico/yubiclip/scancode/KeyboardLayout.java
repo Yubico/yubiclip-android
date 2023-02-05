@@ -15,6 +15,7 @@ public abstract class KeyboardLayout {
         layouts.put("US", new USKeyboardLayout());
 	    layouts.put("DE", new DEKeyboardLayout());
         layouts.put("DE-CH", new DECHKeyboardLayout());
+        layouts.put("FR", new FRKeyboardLayout());
     }
 
     public static KeyboardLayout forName(String name) {
